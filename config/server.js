@@ -14,8 +14,8 @@ var expressValidator = require('express-validator');
 var application = express();
 
 //setar as variaveis que as 'view exgine' e 'views' do express
-application.set('view engine',  'ejs');
-application.set('views',  '.app/views');
+application.set('view engine', 'ejs');
+application.set('views', './app/views');
 
 //configurar o middleware express.static
 application.use(express.static('./app/public'));
