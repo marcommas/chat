@@ -21,6 +21,8 @@ io.on('connection', function(socket){
     });
     
     socket.on('msgParaServidor', function(data){
+        
+        /*evento de dialog*/
         socket.emit(
                 'msgParaCliente', 
                 {apelido: data.apelido, mensagem: data.mensagem}
@@ -30,7 +32,18 @@ io.on('connection', function(socket){
                 'msgParaCliente', 
                 {apelido: data.apelido, mensagem: data.mensagem}
             );
-    
-        
+            
+        /* participantes */
+        if (parseInt(data.apelido_atualizado_nos_clientes) == 0) {
+            socket.emit(
+                    'participantesParaCliente', 
+                    {apelido: data.apelido}
+                );
+
+            socket.broadcast.emit(
+                    'participantesParaCliente', 
+                    {apelido: data.apelido}
+                );
+        }
     });
 });
