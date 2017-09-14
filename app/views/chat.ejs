@@ -104,25 +104,31 @@
 		<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
 			<div class="container">
 				<div class="panel-body campo-mensagem">
-					<form>
-						<div class="col-md-12">
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="Mensagem">
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">></button>
-								</span>
-							</div>
-						</div>
-					</form>
+                                        <div class="col-md-12">
+                                                <div class="input-group">
+                                                        <input type="text" class="form-control" placeholder="Mensagem" id="mensagem">
+                                                        <input type="hidden" id="apelido" value="<%= dadosForm.apelido %>" />
+                                                        <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button" id="enviar_mensagem"></button>
+                                                        </span>
+                                                </div>
+                                        </div>
 				</div>
 			</div>
 		</nav>		
 		
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
 		
                 <script src="/socket.io/socket.io.js"></script>
                 <script>
                     var socket = io('http://localhost');
+                    
+                    $('#enviar_mensagem').click(function(){
+                        socket.emit(
+                            'msgParaServidor',
+                            {apelido: $("#apelido").val(), mensagem: $('#mensagem').val()}
+                            );
+                    });
                     
                     
                     socket.on('msgParaCliente', function(data){
